@@ -1,40 +1,112 @@
 <html lang="en">
-
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
     <title>Hello, world!</title>
+
 </head>
 
-<body style="font-family: 'Lato', sans-serif;">
+<body style="font-family: sans-serif; height:auto;">
 
-
-    <h1>
-        <%= title %>
-    </h1>
-
-    <form action="/" method="POST">
-        <input type="text" name="newItem" placeholder="Item">
-        <input type="text" name="buyer" placeholder="Persons">
-        <button type="submit" class="btn btn-success">Send</button>
-    </form>
-    <div style="display:inline-block; align-items: center; border:1px solid black;">
-        <% for(var i=0; i<list.length ; i++) { %>
-            <div style="display:flex; align-items: center;">
-                <%= list[i].item +" -> "+ list[i].buyer %>     
-                    <form action="/" method="POST">
-                       
-                            <button name="delete" type="submit" value=<%=i %>> Delete</button>                        
-                    </form>
-            </div>
-            <% } %>
+    <navbar style="display:flex; align-items: center;">
+        <div><img style="width:100px; margin-right:10px;" src="assets/logo.png"></div>
+        <div><h1><%= title %></h1></div>
+    </navbar>
+    <h2>Add items</h2>
+    <div style=" display:flex; align-items:center;">
+        <form action="/" method="POST" style="margin:0px 0px 0px 20px; ">
+            <input type="text" name="newItem" placeholder="Item">
+            <input type="text" name="buyer" placeholder="Persons">
+            <button type="submit" class="button-9">Send</button>
+        </form>
     </div>
+    <div>
+        <table style="height:20%;">
+        <% for(var i = 0; i < list.length ; i++) { %>
+            <tr>
+                <td>
+                    <span><b> Item:</b> <%= list[i].item %> </span> -- <span> <b>Buyer:</b> <%= list[i].buyer %></span>
+                </td>
+                <td>
+                    <form action="/" method="POST" style="margin:10px;" id="formUpdate">
+                        <button name="delete" class="button-9" type="submit" value=<%= i %>> Delete</button>
+                    </form>
+                </td>
+                <td> <!-Edit-->
+                    <form action="/" method="POST" style="margin:10px;" id="formUpdate">
+                        <button name="edit" class="button-9" onclick="teste123(<%= i %>)" type="submit" value=<%= i %>>
+                            Edit
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        <% } %>
+        </table>
     </div>
 </body>
-
 </html>
+
+<style>
+
+    input[type=text], select {
+        padding: 12px 20px;
+        margin: 5px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size:15px;
+    }
+
+    input[type=submit] {
+
+
+        color: dodgerblue;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    input[type=submit]:hover {
+        color: dodgerblue;
+        background-color: #45a049;
+    }
+
+    .button-9 {
+        backface-visibility: hidden;
+        background-color: #405cf5;
+        border-radius: 6px;
+        border-width: 0;
+        box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset, rgba(50, 50, 93, .1) 0 2px 5px 0, rgba(0, 0, 0, .07) 0 1px 1px 0;
+        box-sizing: border-box;
+        color: #fff;
+        cursor: pointer;
+        font-family: -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Ubuntu, sans-serif;
+        font-size: 100%;
+        height: 44px;
+        line-height: 1.15;
+        margin: 12px 0 0;
+        outline: none;
+        overflow: hidden;
+        padding: 0 25px;
+        position: relative;
+        text-align: center;
+        text-transform: none;
+        transform: translateZ(0);
+        transition: all .2s, box-shadow .08s ease-in;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+    }
+
+    .button-9:disabled {
+        cursor: default;
+    }
+
+    .button-9:focus {
+        box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset, rgba(50, 50, 93, .2) 0 6px 15px 0, rgba(0, 0, 0, .1) 0 2px 2px 0, rgba(50, 151, 211, .3) 0 0 0 4px;
+    }
+</style>
