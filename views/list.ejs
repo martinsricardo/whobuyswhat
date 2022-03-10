@@ -4,11 +4,14 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
     <title>Hello, world!</title>
 </head>
 
-<body>
+<body style="font-family: 'Lato', sans-serif;">
 
 
     <h1>
@@ -20,21 +23,18 @@
         <input type="text" name="buyer" placeholder="Persons">
         <button type="submit" class="btn btn-success">Send</button>
     </form>
-
-    <% for(var i=0; i<list.length ; i++) { %>
-        <div style="display:flex; align-items: center; border:1px solid black;">
-            <div style="margin:5px;">
-                <%= list[i].item +" -> "+ list[i].buyer %>
+    <div style="display:inline-block; align-items: center; border:1px solid black;">
+        <% for(var i=0; i<list.length ; i++) { %>
+            <div style="display:flex; align-items: center;">
+                <%= list[i].item +" -> "+ list[i].buyer %>     
+                    <form action="/" method="POST">
+                       
+                            <button name="delete" type="submit" value=<%=i %>> Delete</button>                        
+                    </form>
             </div>
-            <div style="margin:5px;">
-                <form action="/" method="POST">
-                    <p>
-                        <button name="delete" type="submit" value=<%=i %>> Delete</button>
-                    </p>
-                </form>
-                <% } %>
-            </div>
-        </div>
+            <% } %>
+    </div>
+    </div>
 </body>
 
 </html>
