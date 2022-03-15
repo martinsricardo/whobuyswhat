@@ -1,4 +1,5 @@
 <html lang="en">
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -7,13 +8,19 @@
 
 </head>
 
-<body style="font-family: sans-serif; height:auto;">
 
+
+<body style="font-family: sans-serif; height:auto;">
     <navbar style="display:flex; align-items: center;">
         <div><img style="width:100px; margin-right:10px;" src="assets/logo.png"></div>
-        <div><h1><%= title %></h1></div>
+        <div>
+            <h1>
+                <%= title %>
+            </h1>
+        </div>
     </navbar>
-    <h2>Add items</h2>
+    <h2>Ola !!</h2>
+    <div style="width:350px; text-align: center;"><p> Vais dar uma festa e queres repartir as compras com os teus amigos !? </p><p>Pois este mini projeto vai-te ajudar a saber quem compra o que =D !</p> </div>
     <div style=" display:flex; align-items:center;">
         <form action="/" method="POST" style="margin:0px 0px 0px 20px; ">
             <input type="text" name="newItem" placeholder="Item">
@@ -23,40 +30,45 @@
     </div>
     <div>
         <table style="height:20%;">
-        <% for(var i = 0; i < list.length ; i++) { %>
-            <tr>
-                <td>
-                    <span><b> Item:</b> <%= list[i].item %> </span> -- <span> <b>Buyer:</b> <%= list[i].buyer %></span>
-                </td>
-                <td>
-                    <form action="/" method="POST" style="margin:10px;" id="formUpdate">
-                        <button name="delete" class="button-9" type="submit" value=<%= i %>> Delete</button>
-                    </form>
-                </td>
-                <td> <!-Edit-->
-                    <form action="/" method="POST" style="margin:10px;" id="formUpdate">
-                        <button name="edit" class="button-9" onclick="teste123(<%= i %>)" type="submit" value=<%= i %>>
+            <% for(var i=0; i < list.length ; i++) { %>
+                <tr>
+                    <td>
+                        <span><b> Item:</b> <%= list[i].item %> </span> -- <span> <b>Buyer:</b><%= list[i].buyer %></span>
+                    </td>
+                    <td>
+                        <form action="/" method="POST" style="margin:10px;" id="formUpdate">
+                            <button name="delete" class="button-9" type="submit" value=<%=i %>> Delete</button>
+                        </form>
+                    </td>
+                    <td>
+                        <!--Edit-->
+                        <form action="/" method="POST" style="margin:10px;" id="formUpdate"> 
+                        <button id="btn" type="submit" name="edit" value="<%=i%>" class="button-9">
                             Edit
                         </button>
-                    </form>
-                </td>
-            </tr>
-        <% } %>
+                         </form>
+                    </td>
+                </tr>
+                <% } %>
         </table>
     </div>
+
+
 </body>
+
+
 </html>
 
 <style>
-
-    input[type=text], select {
+    input[type=text],
+    select {
         padding: 12px 20px;
         margin: 5px 0;
         display: inline-block;
         border: 1px solid #ccc;
         border-radius: 4px;
         box-sizing: border-box;
-        font-size:15px;
+        font-size: 15px;
     }
 
     input[type=submit] {
@@ -86,9 +98,9 @@
         cursor: pointer;
         font-family: -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Ubuntu, sans-serif;
         font-size: 100%;
-        height: 44px;
+        height: 30px;
+        width: 100px;
         line-height: 1.15;
-        margin: 12px 0 0;
         outline: none;
         overflow: hidden;
         padding: 0 25px;

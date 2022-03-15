@@ -4,60 +4,63 @@ const bodyParser = require("body-parser");
 const app = express();
 
 app.set("view engine", "ejs");
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 let list = [];
 let editSelection = [];
 
 app.get("/", (req, res) => {
-    let title = "Who Buys What";
+  let title = "Who Buys What";
 
-    res.render("list", {
-        title: title,
-        list: list,
-        editNum: editSelection
-    });
+  res.render("list", {
+    title: title,
+    list: list,
+    editNum: editSelection,
+  });
+});
+
+app.get("/edit", (req, res) => {
+  let query = list[editSelection];
+  res.render("edit", {
+    query: query,
+  });
+});
+
+app.post("/edit", (req, res) => {
+  let updateBuyer = req.body.updateBuyer;
+  let updateItem = req.body.updateItem;
+  let index = editSelection;
+  list[index].item = updateItem;
+  list[index].buyer = updateBuyer;
+  res.redirect("/");
 });
 
 app.post("/", (req, res) => {
+  let editNumber = req.body.edit;
+  let deleteNumber = req.body.delete;
 
-    let editNumber = req.body.edit;
-    let deleteNumber = req.body.delete;
+  if (deleteNumber >= 0) {
+    list.splice(deleteNumber, 1);
+  } else if (editNumber >= 0) {
+    editSelection = [];
+    editSelection.push(req.body.edit);
+    res.redirect("/edit");
+    return true;
+  } else {
+    let item = req.body.newItem;
+    let buyer = req.body.buyer;
+    let shop = {
+      item: item,
+      buyer: buyer,
+    };
 
-    if (deleteNumber >= 0) {
-        list.splice(deleteNumber, 1);
+    list.push(shop);
+  }
 
-    } else if (editNumber >= 0) {
-        let editSelection = [];
-        let code = req.body.edit ;
-        let numberArray = {
-            code: code
-        };
-
-        editSelection.push(numberArray);
-        let toString = JSON.stringify(editSelection);
-        console.log("Edit number : " + toString )
-
-
-
-    } else {
-        let item = req.body.newItem;
-        let buyer = req.body.buyer;
-        let shop = {
-            item: item,
-            buyer: buyer,
-        };
-
-        list.push(shop);
-        //let toString = JSON.stringify(list);
-       // console.log("String list : " + toString);
-        //console.log("shop: " + list);
-    }
-
-    res.redirect("/");
+  res.redirect("/");
 });
 
 app.listen(3000, () => {
-    console.log(`Example app listening at http://localhost:3000`);
+  console.log(`Example app listening at http://localhost:3000`);
 });
